@@ -1,3 +1,7 @@
+
+
+Analises utilizadas para o desenvolvimento do projeto
+
 # Jewelry App
 
 Aplicação Vue.js para exibição de joias com deploy automatizado no Azure usando Terraform.

@@ -44,6 +44,7 @@ resource "aws_security_group" "jewelry_sg" {
   }
 
   egress {
+    description = "acesso de todos"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -54,6 +55,7 @@ resource "aws_security_group" "jewelry_sg" {
 resource "aws_instance" "jewelry_vm" {
   ami                         = "ami-0fc5d935ebf8bc3bc"
   instance_type               = "t2.micro"
+  monitoring                   = true
   subnet_id                   = "subnet-07f25c27c4f87bbcf"
   key_name                    = aws_key_pair.main.key_name
   vpc_security_group_ids      = [aws_security_group.jewelry_sg.id]
@@ -77,7 +79,9 @@ resource "aws_instance" "jewelry_vm" {
   EOF
 
   tags = {
-    Name = "jewelry-vm"
+  Name        = "jewelry_vm"
+  Environment = "dev"
+  Owner       = "Pedro"
   }
 }
 
