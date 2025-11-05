@@ -10,6 +10,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
@@ -30,8 +34,14 @@ jobs:
       - name: Validar segurança com Checkov
         run: make check-security || echo "Checkov não bloqueou o processo"
 
-      - name: Provisionar infraestrutura
-        run: make aws-deploy ENV=prod
+      - name: Provisionar infraestrutura com Terraform
+        run: |
+          make init
+          make plan \
+          VARS="aws_access_key=${AWS_ACCESS_KEY_ID} aws_secret_key=${AWS_SECRET_ACCESS_KEY}"
+          make apply \
+          VARS="aws_access_key=${AWS_ACCESS_KEY_ID} aws_secret_key=${AWS_SECRET_ACCESS_KEY}"
+          VARS="aws_access_key=${AWS_ACCESS_KEY_ID} aws_secret_key=${AWS_SECRET_ACCESS_KEY}"
 
       - name: Build da aplicação
         run: make build ENV=prod

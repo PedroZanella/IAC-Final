@@ -12,12 +12,13 @@ init:
 	terraform init
 
 # Planejamento da infraestrutura
-plan: init
-	terraform plan
+plan:
+	terraform plan $(VARS)
 
 # Aplicação da infraestrutura
-apply: plan
-	terraform apply -auto-approve
+apply:
+	terraform apply -auto-approve $(VARS)
+
 
 # Destruição da infraestrutura
 destroy: init

@@ -8,7 +8,9 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region     = "us-east-1"
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
 }
 
 variable "public_key_path" {
@@ -17,6 +19,15 @@ variable "public_key_path" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
+variable "aws_access_key" {
+  description = "AWS Access Key ID"
+  type        = string
+}
+
+variable "aws_secret_key" {
+  description = "AWS Secret Access Key"
+  type        = string
+}
 resource "aws_key_pair" "main" {
   key_name   = "jewelry-key"
   public_key = file(var.public_key_path)
