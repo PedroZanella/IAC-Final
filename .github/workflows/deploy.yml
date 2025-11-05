@@ -1,0 +1,40 @@
+name: Deploy AWS Jewelry Site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar dependências básicas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y make unzip curl
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      - name: Instalar Checkov
+        run: pip install checkov
+
+      - name: Validar segurança com Checkov
+        run: make check-security || echo "Checkov não bloqueou o processo"
+
+      - name: Provisionar infraestrutura
+        run: make aws-deploy ENV=prod
+
+      - name: Build da aplicação
+        run: make build ENV=prod
+
+      - name: Deploy remoto via SSH
+        run: make deploy ENV=prod
