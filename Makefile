@@ -1,4 +1,7 @@
-default: azure-deploy
+.PHONY: default init plan apply destroy build deploy clean docker-build docker-run aws-deploy aws-destroy
+
+default: aws-deploy
+
 init:
 	terraform init
 
@@ -19,7 +22,7 @@ deploy: build apply
 	./deploy.sh
 
 clean:
-	rm -rf node_modules dist .terraform terraform.tfstate*
+	rm -rf ./node_modules ./dist .terraform terraform.tfstate*
 
 docker-build:
 	docker build -t jewelry-app .
@@ -27,9 +30,10 @@ docker-build:
 docker-run: docker-build
 	docker run -p 8080:80 jewelry-app
 
-azure-deploy: apply
+aws-deploy: apply
 	@echo "Aguarde alguns minutos para a aplicação inicializar..."
+	@sleep 5
 	@echo "URL: http://$$(terraform output -raw vm_public_ip):8080"
 
-azure-destroy:
+aws-destroy:
 	terraform destroy -auto-approve
