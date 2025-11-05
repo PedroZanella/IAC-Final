@@ -31,8 +31,14 @@ Your **insightful** manager recalled that your company had previously developed 
 
 ## 📦 Project Structure
 
-├── deploy.sh               # Remote deployment script via SSH ├── Dockerfile              # Application packaging ├── index.html              # Application frontend ├── main.tf                 # Terraform infrastructure ├── Makefile                # Task automation ├── package.json            # Node.js dependencies ├── terraform.tfstate       # Infrastructure state ├── vite.config.js          # Vite configuratio
-
+├── deploy.sh               # Remote deployment script via SSH 
+├── Dockerfile              # Application packaging 
+├── index.html              # Application frontend 
+├── main.tf                 # Terraform infrastructure 
+├── Makefile                # Task automation 
+├── package.json            # Node.js dependencies 
+├── terraform.tfstate       # Infrastructure state 
+├── vite.config.js          # Vite configuratio
 
 ---
 
@@ -137,7 +143,14 @@ Seu chefe, muito **perspicaz**, lembrou que a empresa já havia desenvolvido um 
 ---
 
 ## 📦 Estrutura do Projeto
-├── deploy.sh               # Script de deploy remoto via SSH ├── Dockerfile              # Empacotamento da aplicação ├── index.html              # Frontend da aplicação ├── main.tf                 # Infraestrutura Terraform ├── Makefile                # Automação de tarefas ├── package.json            # Dependências Node.js ├── terraform.tfstate       # Estado da infraestrutura ├── vite.config.js          # Configuração do Vite
+├── deploy.sh               # Script de deploy remoto via SSH
+├── Dockerfile              # Empacotamento da aplicação 
+├── index.html              # Frontend da aplicação 
+├── main.tf                 # Infraestrutura Terraform 
+├── Makefile                # Automação de tarefas 
+├── package.json            # Dependências Node.js 
+├── terraform.tfstate       # Estado da infraestrutura 
+├── vite.config.js          # Configuração do Vite
 
 
 ---
