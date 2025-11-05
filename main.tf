@@ -11,9 +11,15 @@ provider "aws" {
   region = "us-east-1"
 }
 
+variable "public_key_path" {
+  type        = string
+  description = "Caminho da chave pública"
+  default     = "~/.ssh/id_rsa.pub"
+}
+
 resource "aws_key_pair" "main" {
   key_name   = "jewelry-key"
-  public_key = file("C:\\Users\\pedro_huas\\.ssh\\id_rsa.pub") 
+  public_key = file(var.public_key_path)
 }
 
 resource "aws_security_group" "jewelry_sg" {
@@ -61,9 +67,7 @@ resource "aws_instance" "jewelry_vm" {
     systemctl enable docker
     usermod -aG docker ubuntu
 
-    docker container stop jewelry-app 2> /dev/null
-
-    cd /home/ubuntu
+    cd /root
     rm -rf proway-docker/
     git clone https://github.com/dartanghan/proway-docker.git
     cd proway-docker/modulo7-iac_tooling
@@ -82,5 +86,6 @@ output "vm_public_ip" {
 }
 
 output "app_url" {
-  value = "http://${aws_instance.jewelry_vm.public_ip}:8080"
+  value     = "http://${aws_instance.jewelry_vm.public_ip}:8080"
+  sensitive = true
 }

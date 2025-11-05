@@ -32,7 +32,6 @@ docker-run: docker-build
 
 aws-deploy: apply
 	@echo "Aguarde alguns minutos para a aplicação inicializar..."
-	@sleep 5
 	@echo "URL: http://$$(terraform output -raw vm_public_ip):8080"
 
 aws-destroy:
